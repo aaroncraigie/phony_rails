@@ -55,7 +55,7 @@ module PhonyRails
       # (Force) add country_number if missing
       # NOTE: do we need to force adding country code? Otherwise we can share logic with next block
       if !Phony.plausible?(number) || _country_number != country_code_from_number(number)
-        number = "#{_country_number}#{number}"
+        number = "#{_country_number}#{number}" if not number =~ /\A(00|\+)?#{_country_number}/
       end
     elsif _default_country_number = extract_default_country_number(options)
       options[:add_plus] = true if options[:add_plus].nil?
